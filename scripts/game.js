@@ -8,6 +8,27 @@ class Game {
         this.frames = 0;
         this.lifes = 3;
         this.score = 0;
+
+        document.addEventListener(
+            "keydown",
+            (event)=>{
+                switch(event.key){
+                    case "ArrowLeft":
+                        this.player.leftMove();
+                        break;
+                    case "ArrowRight":
+                        this.player.rightMove();
+                        break;
+                }
+            }
+        )
+
+        document.addEventListener(
+            "keyup",
+            ()=>{
+                this.player.vx = 0;
+            }
+        )
     }
 
     startGame(){
@@ -40,7 +61,6 @@ class Game {
     }
 
     move(){
-        this.player.move();
         this.ball.move();
     }
 
