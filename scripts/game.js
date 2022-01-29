@@ -6,7 +6,8 @@ class Game {
         this.player = player;
         this.ball = ball;
         this.frames = 0;
-        this.scores = 0;
+        this.lifes = 3;
+        this.score = 0;
     }
 
     startGame(){
@@ -27,7 +28,67 @@ class Game {
         this.moves();
         this.draw();
         this.checkScore();
-        if(this.checkCollision()) this.gameOver;
-        
+        this.checkGameOver();
+        if(this.frames !== null){
+            this.frames = requestAnimationFrame(this.play.bind(this));
+        }
+    }
+
+    stop(){
+        cancelAnimationFrame(this.frames);
+        this.frames = null;
+    }
+
+    move(){
+        this.player.move();
+        this.ball.move();
+    }
+
+    draw(){
+        this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
+        this.background.draw();
+        this.bricks.draw();
+        this.player.draw();
+        this.ball.draw();
+        this.drawScore();
+        this.drawLifes();
+    }
+
+    drawScore(){
+        this.ctx.save();
+        this.ctx.fillStyle = "black";
+        this.ctx.font = "bold 24px sans-serif";
+        this.ctx.fillText(`Score: ${this.score} pts`, 20, 40);
+        this.ctx.restore();
+    }
+
+    drawLifes(){
+        this.ctx.save();
+        this.ctx.fillStyle = "black";
+        this.ctx.font = "bold 24px sans-serif";
+        this.ctx.fillText(`Score: ${this.lifes} pts`, this.ctx.canvas.width - 40, 40);
+        this.ctx.restore();
+    }
+
+    checkScore(){
+        this.score = 24 - bricksArr.length;
+    }
+
+    checkGameOver(){
+        if(this.lifes <= 0){
+            this.stop();
+            this.ctx.saves();
+            this.ctx.fillStyle = "rgba(0, 0, 0, 0.7)";
+            this.ctx.fillRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
+            this.ctx.fillStyle = "white";
+            this.ctx.textAlign = "center";
+            this.ctx.font = "bold 32px sans-serif";
+            this.ctx.fillText(
+                "Game Over",
+                this.ctx.canvas.width / 2,
+                this.ctx.canvas.height / 2
+            );
+            this.ctx.restore();
+        }
     }
 };
