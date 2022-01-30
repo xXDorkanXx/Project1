@@ -17,12 +17,12 @@ class Player{
     }
 
     leftMove(){
-        this.vx = -5;
+        this.vx = -20;
         this.x += this.vx;
     }
 
     rightMove(){
-        this.vx = 5;
+        this.vx = 20;
         this.x += this.vx;
     }
 

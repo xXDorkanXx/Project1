@@ -5,9 +5,9 @@ class Bricks{
         this.brickColumns = 6;
         this.brickWidth = 75;
         this.brickHeight = 20;
-        this.brickPadding = 10;
-        this.brickOffsetTop = 30;
-        this.brickOffsetLeft = 30;
+        this.brickPadding = 20;
+        this.brickOffsetTop = 50;
+        this.brickOffsetLeft = 100;
         this.bricksArr = [];
     }
 
@@ -28,7 +28,7 @@ class Bricks{
         for(let column = 0; column < this.brickColumns; column++){
             for(let row = 0; row < this.brickRows; row++){
                 if(this.bricksArr[column][row].status === true){
-                    let brickX = (column * (this.brickWidth + this.brickPadding)) + this.brickOffsetLeft;
+                    let brickX = (column * (this.brickWidth + this.brickPadding + 30)) + this.brickOffsetLeft;
                     let brickY = (row * (this.brickHeight + this.brickPadding)) + this.brickOffsetTop;
                     this.bricksArr[column][row].x = brickX;
                     this.bricksArr[column][row].y = brickY;

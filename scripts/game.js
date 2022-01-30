@@ -49,10 +49,9 @@ class Game{
     }
 
     play(){
-        this.moves();
+        this.move();
         this.draw();
         this.checkCollisions();
-        this.checkScore();
         this.checkWin();
         this.checkLifes();
         this.checkGameOver();
@@ -92,7 +91,7 @@ class Game{
         this.ctx.save();
         this.ctx.fillStyle = "black";
         this.ctx.font = "bold 24px sans-serif";
-        this.ctx.fillText(`Score: ${this.lifes} pts`, this.ctx.canvas.width - 40, 40);
+        this.ctx.fillText(`Lifes: ${this.lifes}`, this.ctx.canvas.width - 150, 40);
         this.ctx.restore();
     }
 
@@ -112,7 +111,7 @@ class Game{
                     this.ball.y < currentBrick.y + this.bricks.brickHeight){
                         this.ball.vy = -this.ball.vy;
                         currentBrick.status = false;
-                        this.score += 1;
+                        this.score++;
                     }
             }
         };
@@ -125,23 +124,18 @@ class Game{
         };
     }
 
-    checkScore(){
-        this.score = 24 - bricksArr.length;
-    }
-
     checkLifes(){
         if(this.ball.y + this.ball.vy > this.ctx.canvas.height - this.ball.r){
-            this.lifes - 1;
-            this.stop();
-            this.init();
-            this.play();
+            this.lifes--;
+            this.player.init();
+            this.ball.init();
         }
     }
 
     checkWin(){
-        if(this.score = 24){
+        if(this.score === 24){
             this.stop();
-            this.ctx.saves();
+            this.ctx.save();
             this.ctx.fillStyle = "rgba(0, 0, 0, 0.7)";
             this.ctx.fillRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
             this.ctx.fillStyle = "white";
@@ -159,7 +153,7 @@ class Game{
     checkGameOver(){
         if(this.lifes <= 0){
             this.stop();
-            this.ctx.saves();
+            this.ctx.save();
             this.ctx.fillStyle = "rgba(0, 0, 0, 0.7)";
             this.ctx.fillRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
             this.ctx.fillStyle = "white";

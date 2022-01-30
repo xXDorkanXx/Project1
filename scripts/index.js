@@ -6,7 +6,7 @@ canvas.height = 550;
 const background = new Background(ctx);
 const bricks = new Bricks(ctx);
 const player = new Player(ctx);
-const ball = new Ball(ctx, player);
+const ball = new Ball(ctx);
 
 
 const game = new Game(ctx, background, bricks, player, ball);
@@ -22,6 +22,3 @@ startButton.onclick = ()=> {
   title.remove();
   game.startGame();
 };
-
-ctx.beginPath();
-ctx.arc()
