@@ -1,4 +1,4 @@
-class Game {
+class Game{
     constructor(ctx, background, bricks, player, ball){
         this.ctx = ctx;
         this.background = background;
@@ -15,9 +15,11 @@ class Game {
                 switch(event.key){
                     case "ArrowLeft":
                         this.player.leftMove();
+                        if(this.player.x <= 0){this.player.x = 0};
                         break;
                     case "ArrowRight":
                         this.player.rightMove();
+                        if(this.player.x + this.player.width > this.ctx.canvas.width){this.player.x = this.ctx.canvas.width - this.player.width};
                         break;
                 }
             }
@@ -27,13 +29,14 @@ class Game {
             "keyup",
             ()=>{
                 this.player.vx = 0;
+                this.player.x += this.player.vx;
             }
         )
     }
 
     startGame(){
         this.init();
-        this.player();
+        this.play();
     }
 
     init(){
@@ -48,7 +51,10 @@ class Game {
     play(){
         this.moves();
         this.draw();
+        this.checkCollisions();
         this.checkScore();
+        this.checkWin();
+        this.checkLifes();
         this.checkGameOver();
         if(this.frames !== null){
             this.frames = requestAnimationFrame(this.play.bind(this));
@@ -90,8 +96,64 @@ class Game {
         this.ctx.restore();
     }
 
+    checkCollisions(){
+        //player-walls collisions
+        if(this.player.x <= 0){this.player.x = 0};
+        if(this.player.x + this.player.width >= this.ctx.canvas.width){this.player.x = this.ctx.canvas.width - this.player.width};
+
+        //ball-bricks collisions
+        for(let column = 0; column < this.bricks.brickColumns; column++){
+            for(let row = 0; row < this.bricks.brickRows; row++){
+                let currentBrick = this.bricks.bricksArr[column][row];
+                if(
+                    this.ball.x > currentBrick.x &&
+                    this.ball.x < currentBrick.x + this.bricks.brickWidth &&
+                    this.ball.y > currentBrick.y &&
+                    this.ball.y < currentBrick.y + this.bricks.brickHeight){
+                        this.ball.vy = -this.ball.vy;
+                        currentBrick.status = false;
+                        this.score += 1;
+                    }
+            }
+        };
+
+        //ball-walls & ball-player collisions
+        if(this.ball.y + this.ball.vy < this.ball.r){this.ball.vy = -this.ball.vy};
+        if(this.ball.x + this.ball.vx > this.ctx.canvas.width - this.ball.r || this.ball.x + this.ball.vx < this.ball.r) {this.ball.vx = -this.ball.vx};
+        if(this.ball.y + this.ball.vy > this.player.y - this.ball.r){
+            if(this.ball.x > this.player.x && this.ball.x < this.player.x + this.player.width){this.ball.vy = -this.ball.vy};
+        };
+    }
+
     checkScore(){
         this.score = 24 - bricksArr.length;
+    }
+
+    checkLifes(){
+        if(this.ball.y + this.ball.vy > this.ctx.canvas.height - this.ball.r){
+            this.lifes - 1;
+            this.stop();
+            this.init();
+            this.play();
+        }
+    }
+
+    checkWin(){
+        if(this.score = 24){
+            this.stop();
+            this.ctx.saves();
+            this.ctx.fillStyle = "rgba(0, 0, 0, 0.7)";
+            this.ctx.fillRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
+            this.ctx.fillStyle = "white";
+            this.ctx.textAlign = "center";
+            this.ctx.font = "bold 32px sans-serif";
+            this.ctx.fillText(
+                "You win!!",
+                this.ctx.canvas.width / 2,
+                this.ctx.canvas.height / 2
+            );
+            this.ctx.restore();
+        }
     }
 
     checkGameOver(){
