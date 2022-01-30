@@ -6,8 +6,8 @@ class Ball{
         this.r = 10;
         this.stAng = 0;
         this.endAng = Math.PI * 2;
-        this.vx = 3;
-        this.vy = -3;
+        this.vx = 5;
+        this.vy = -7;
     }
 
     init(){

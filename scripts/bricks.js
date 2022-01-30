@@ -41,13 +41,6 @@ class Bricks{
                         this.brickWidth,
                         this.brickHeight
                     )
-                    /*
-                    this.ctx.beginPath();
-                    this.ctx.rect(brickX, brickY, this.brickWidth, this.brickHeight);
-                    this.ctx.fillStyle = "#0095DD";
-                    this.ctx.fill();
-                    this.ctx.closePath();
-                    */
                 }
             }
         }

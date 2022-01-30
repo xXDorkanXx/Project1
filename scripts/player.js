@@ -1,7 +1,7 @@
 class Player{
     constructor(ctx){
         this.ctx = ctx;
-        this.width = 100;
+        this.width = 150;
         this.height = 30;
         this.x = (this.ctx.canvas.width / 2) - 50;
         this.y = this.ctx.canvas.height - 130;
@@ -17,12 +17,12 @@ class Player{
     }
 
     leftMove(){
-        this.vx = -20;
+        this.vx = -15;
         this.x += this.vx;
     }
 
     rightMove(){
-        this.vx = 20;
+        this.vx = 15;
         this.x += this.vx;
     }
 
