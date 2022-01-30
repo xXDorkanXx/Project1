@@ -8,6 +8,8 @@ class Bricks{
         this.brickPadding = 20;
         this.brickOffsetTop = 50;
         this.brickOffsetLeft = 100;
+        this.img = new Image();
+        this.img.src = "/images/brick.png";
         this.bricksArr = [];
     }
 
@@ -32,11 +34,20 @@ class Bricks{
                     let brickY = (row * (this.brickHeight + this.brickPadding)) + this.brickOffsetTop;
                     this.bricksArr[column][row].x = brickX;
                     this.bricksArr[column][row].y = brickY;
+                    this.ctx.drawImage(
+                        this.img,
+                        brickX,
+                        brickY,
+                        this.brickWidth,
+                        this.brickHeight
+                    )
+                    /*
                     this.ctx.beginPath();
                     this.ctx.rect(brickX, brickY, this.brickWidth, this.brickHeight);
                     this.ctx.fillStyle = "#0095DD";
                     this.ctx.fill();
                     this.ctx.closePath();
+                    */
                 }
             }
         }

@@ -117,9 +117,9 @@ class Game{
         };
 
         //ball-walls & ball-player collisions
-        if(this.ball.y + this.ball.vy < this.ball.r){this.ball.vy = -this.ball.vy};
-        if(this.ball.x + this.ball.vx > this.ctx.canvas.width - this.ball.r || this.ball.x + this.ball.vx < this.ball.r) {this.ball.vx = -this.ball.vx};
-        if(this.ball.y + this.ball.vy > this.player.y - this.ball.r){
+        if(this.ball.y < this.ball.r){this.ball.vy = -this.ball.vy};
+        if(this.ball.x > this.ctx.canvas.width - this.ball.r || this.ball.x + this.ball.vx < this.ball.r) {this.ball.vx = -this.ball.vx};
+        if(this.ball.y > this.player.y - this.ball.r){
             if(this.ball.x > this.player.x && this.ball.x < this.player.x + this.player.width){this.ball.vy = -this.ball.vy};
         };
     }
