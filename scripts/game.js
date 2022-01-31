@@ -81,9 +81,9 @@ class Game{
     draw(){
         this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
         this.background.draw();
-        this.bricks.draw();
         this.player.draw();
         this.ball.draw();
+        this.bricks.draw();
         this.drawScore();
         this.drawLifes();
     }
@@ -104,12 +104,16 @@ class Game{
         this.ctx.restore();
     }
 
-    checkCollisions(){
 
-        let leftOfBall = this.ball.x;
-        let rightOfBall = this.ball.x + this.ball.width;
-        let topOfBall = this.ball.y;
-        let bottomOfBall = this.ball.y + this.ball.height;
+    checkCollisions(){
+       // this.ball.checkCollision();
+
+
+
+        let leftOfBall = this.ball.x - this.ball.r;
+        let rightOfBall = this.ball.x + this.ball.r;
+        let topOfBall = this.ball.y - this.ball.r;
+        let bottomOfBall = this.ball.y + this.ball.r;
 
         let leftOfPlayer = this.player.x;
         let rightOfPlayer = this.player.x + this.player.width;
@@ -130,10 +134,11 @@ class Game{
             return (leftOfBall < brick.x + this.bricks.brickWidth)
         };
         */
+        
        
 
         //player-walls collisions
-        if(leftOfPlayer <= 0){leftOfPlayer = 0}; //prevents player go off screen by left side
+        if(leftOfPlayer <= this.ball.r){leftOfPlayer = 0}; //prevents player go off screen by left side
         if(rightOfPlayer >= this.ctx.canvas.width){leftOfPlayer = this.ctx.canvas.width - this.player.width}; //prevents player go off screen by left side
 
         //ball-bricks collisions
@@ -218,10 +223,11 @@ class Game{
             leftOfBall < rightOfPlayer && rightOfBall > rightOfPlayer && topOfBall > topOfPlayer && bottomOfBall < bottomOfPlayer){ //lateral player bounce
             this.ball.vx = -this.ball.vx;
         }
+        
     }
 
     checkLifes(){
-        if(this.ball.y + this.ball.height > this.ctx.canvas.height){
+        if(this.ball.y + this.ball.r > this.ctx.canvas.height){
             this.lifes--;
             this.player.init();
             this.ball.init();
