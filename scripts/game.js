@@ -112,6 +112,19 @@ class Game{
         let topOfPlayer = this.player.y;
         let bottomOfPlayer = this.player.y + this.player.height;
 
+        const topImpact = (brick)=>{
+            return (bottomOfBall > brick.y)
+        };
+        const bottomImpact = (brick)=>{
+            return (topOfBall < brick.y + this.bricks.brickHeight)
+        };
+        const leftImpact = (brick)=>{
+            return (rightOfBall > brick.x)
+        };
+        const rightImpact = (brick)=>{
+            return (leftOfBall < brick.x + this.bricks.brickWidth)
+        };
+       
 
         //player-walls collisions
         if(leftOfPlayer <= 0){leftOfPlayer = 0}; //prevents player go off screen by left side
@@ -120,24 +133,77 @@ class Game{
         //ball-bricks collisions
         for(let column = 0; column < this.bricks.brickColumns; column++){
             for(let row = 0; row < this.bricks.brickRows; row++){
+
                 let currentBrick = this.bricks.bricksArr[column][row];
+                /*
+                let topOfCurrentBrick = currentBrick.y;
+                let bottomOfCurrentBrick = currentBrick.y + this.bricks.brickHeight;
+                let leftOfCurrentBrick = currentBrick.x;
+                let rightOfCurrentBrick = currentBrick.x + this.bricks.brickWidth;
+
+                &&! bottomImpact(currentBrick) &&! leftImpact(currentBrick) &&! rightImpact(currentBrick)) ||
+                    (bottomImpact(currentBrick) &&! topImpact(currentBrick) &&! leftImpact(currentBrick) &&! rightImpact(currentBrick))
+                */
+
+
+
                 if(currentBrick.status === 1){
-                    if(bottomOfBall > currentBrick.y && topOfBall < currentBrick.y && leftOfBall > currentBrick.x && rightOfBall < currentBrick.x + this.bricks.width ||
-                        bottomOfBall > currentBrick.y + this.bricks.height && topOfBall < currentBrick.y + this.bricks.height && leftOfBall > currentBrick.x && rightOfBall < currentBrick.x + this.bricks.width){
+                    if((topImpact(currentBrick) &&! bottomImpact(currentBrick) &&! leftImpact(currentBrick) &&! rightImpact(currentBrick)) ||
+                    (bottomImpact(currentBrick) &&! topImpact(currentBrick) &&! leftImpact(currentBrick) &&! rightImpact(currentBrick))){
+                        console.log("test")
+                        this.ball.vy = -this.ball.vy;
+                        currentBrick.status = 0;
+                        this.score++;
+                        this.bricks.bricksArr.forEach((arr)=>{arr.filter((brick)=> {brick.status === 1})});
+                    };
+
+                    
+                    if((leftImpact(currentBrick) &&! bottomImpact(currentBrick) &&! topImpact(currentBrick) &&! rightImpact(currentBrick)) ||
+                    (rightImpact(currentBrick) &&! topImpact(currentBrick) &&! leftImpact(currentBrick) &&! bottomImpact(currentBrick))){
+                        this.ball.vx = -this.ball.vx;
+                        currentBrick.status = 0;
+                        this.score++;
+                        this.bricks.bricksArr.forEach((arr)=>{arr.filter((brick)=> {brick.status === 1})});
+                    };
+
+                    if((topImpact(currentBrick) && leftImpact(currentBrick) &&! bottomImpact(currentBrick) &&! rightImpact(currentBrick)) ||
+                    (topImpact(currentBrick) && rightImpact(currentBrick) &&! leftImpact(currentBrick) &&! bottomImpact(currentBrick)) ||
+                    (bottomImpact(currentBrick) && leftImpact(currentBrick) &&! rightImpact(currentBrick) &&! topImpact(currentBrick)) ||
+                    (bottomImpact(currentBrick) && rightImpact(currentBrick) &&! leftImpact(currentBrick) &&! topImpact(currentBrick))){
+                        this.ball.vy = -this.ball.vy;
+                        this.ball.vx = -this.ball.vx;
+                        currentBrick.status = 0;
+                        this.score++;
+                        this.bricks.bricksArr.forEach((arr)=>{arr.filter((brick)=> {brick.status === 1})});
+                    };
+                    
+                }
+                
+
+                /*
+                let currentBrick = this.bricks.bricksArr[column][row];
+                let topOfCurrentBrick = currentBrick.y;
+                let bottomOfCurrentBrick = currentBrick.y + this.bricks.brickHeight;
+                let leftOfCurrentBrick = currentBrick.x;
+                let rightOfCurrentBrick = currentBrick.x + this.bricks.brickWidth;
+
+                if(currentBrick.status === 1){
+                    if(bottomOfBall > topOfCurrentBrick && topOfBall < topOfCurrentBrick && leftOfBall > leftOfCurrentBrick && rightOfBall < rightOfCurrentBrick ||
+                        bottomOfBall > bottomOfCurrentBrick && topOfBall < bottomOfCurrentBrick && leftOfBall > leftOfCurrentBrick && rightOfBall < rightOfCurrentBrick){ //ball bounce top and bottom of bricks
                             this.ball.vy = -this.ball.vy;
                             currentBrick.status = 0;
                             this.score++;
                             this.bricks.bricksArr.forEach((arr)=>{arr.filter((brick)=> {brick.status === 1})});
-                        }
-                    if(rightOfBall > currentBrick.x && leftOfBall < currentBrick.x && topOfBall > currentBrick.y && bottomOfBall < currentBrick.y + this.bricks.height ||
-                        leftOfBall < currentBrick.x + this.bricks.width && rightOfBall > currentBrick.x + this.bricks.width && topOfBall > currentBrick.y && bottomOfBall < currentBrick.y + this.bricks.height){
+                        };
+                    if(bottomOfBall < bottomOfCurrentBrick && topOfBall > topOfCurrentBrick && leftOfBall < leftOfCurrentBrick && rightOfBall > leftOfCurrentBrick ||
+                        bottomOfBall < bottomOfCurrentBrick && topOfBall > topOfCurrentBrick && leftOfBall < rightOfCurrentBrick && rightOfBall > rightOfCurrentBrick){ //ball bounce left and right of bricks
                             this.ball.vx = -this.ball.vx;
                             currentBrick.status = 0;
                             this.score++;
                             this.bricks.bricksArr.forEach((arr)=>{arr.filter((brick)=> {brick.status === 1})});
-                        }
+                        };
                 }
-                
+                */
             }
         };
 

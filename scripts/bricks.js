@@ -4,7 +4,7 @@ class Bricks{
         this.brickRows = 4;
         this.brickColumns = 6;
         this.brickWidth = 70;
-        this.brickHeight = 20;
+        this.brickHeight = 25;
         this.brickPadding = 30;
         this.brickOffsetTop = 50;
         this.brickOffsetLeft = 30;
