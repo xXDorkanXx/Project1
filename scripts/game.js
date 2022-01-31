@@ -122,8 +122,16 @@ class Game{
             for(let row = 0; row < this.bricks.brickRows; row++){
                 let currentBrick = this.bricks.bricksArr[column][row];
                 if(currentBrick.status === 1){
-                    if(rightOfBall > currentBrick.x && leftOfBall < currentBrick.x + this.bricks.brickWidth && bottomOfBall > currentBrick.y && topOfBall < currentBrick.y + this.bricks.brickHeight){
+                    if(bottomOfBall > currentBrick.y && topOfBall < currentBrick.y && leftOfBall > currentBrick.x && rightOfBall < currentBrick.x + this.bricks.width ||
+                        bottomOfBall > currentBrick.y + this.bricks.height && topOfBall < currentBrick.y + this.bricks.height && leftOfBall > currentBrick.x && rightOfBall < currentBrick.x + this.bricks.width){
                             this.ball.vy = -this.ball.vy;
+                            currentBrick.status = 0;
+                            this.score++;
+                            this.bricks.bricksArr.forEach((arr)=>{arr.filter((brick)=> {brick.status === 1})});
+                        }
+                    if(rightOfBall > currentBrick.x && leftOfBall < currentBrick.x && topOfBall > currentBrick.y && bottomOfBall < currentBrick.y + this.bricks.height ||
+                        leftOfBall < currentBrick.x + this.bricks.width && rightOfBall > currentBrick.x + this.bricks.width && topOfBall > currentBrick.y && bottomOfBall < currentBrick.y + this.bricks.height){
+                            this.ball.vx = -this.ball.vx;
                             currentBrick.status = 0;
                             this.score++;
                             this.bricks.bricksArr.forEach((arr)=>{arr.filter((brick)=> {brick.status === 1})});
@@ -138,15 +146,20 @@ class Game{
         if(rightOfBall > this.ctx.canvas.width || leftOfBall < this.ball.r) {this.ball.vx = -this.ball.vx}; //ball bounce at both sides of screen
         
         //ball-player collisions
-        if(bottomOfBall > topOfPlayer && topOfBall < bottomOfPlayer && leftOfBall > leftOfPlayer && rightOfBall < rightOfPlayer){ //ball bounce when collides with top of player
+        if(bottomOfBall > topOfPlayer && topOfBall < topOfPlayer && leftOfBall > leftOfPlayer && rightOfBall < rightOfPlayer){ //ball bounce when collides with top of player
             this.ball.vy = -this.ball.vy;
-            if(rightOfBall < (this.player.x + (this.player.width / 2))){
+            if(rightOfBall < (this.player.x + (this.player.width / 2))){ //left side makes vx of ball negative
                 if(this.ball.vx >= 0){this.ball.vx -= 5};
             }
-            if(leftOfBall > (this.player.x + (this.player.width / 2))){
+            if(leftOfBall > (this.player.x + (this.player.width / 2))){ //right side makes vx of ball positive
                 if(this.ball.vx <= 0){this.ball.vx += 5};
             }
         };
+
+        if(rightOfBall > leftOfPlayer && leftOfBall < leftOfPlayer && topOfBall > topOfPlayer && bottomOfBall < bottomOfPlayer ||
+            leftOfBall < rightOfPlayer && rightOfBall > rightOfPlayer && topOfBall > topOfPlayer && bottomOfBall < bottomOfPlayer){ //lateral player bounce
+            this.ball.vx = -this.ball.vx;
+        }
     }
 
     checkLifes(){
