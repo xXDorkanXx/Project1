@@ -11,7 +11,7 @@ class Player{
     }
 
     init(){
-        this.x = 400;
+        this.x = (this.ctx.canvas.width / 2) - 50;
         this.y = this.ctx.canvas.height - 130;
         this.vx = 0;
     }

@@ -6,7 +6,7 @@ canvas.height = 600;
 const background = new Background(ctx);
 const bricks = new Bricks(ctx);
 const player = new Player(ctx);
-const ball = new Ball(ctx);
+const ball = new Ball(ctx, player);
 
 
 const game = new Game(ctx, background, bricks, player, ball);

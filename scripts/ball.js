@@ -1,7 +1,8 @@
 class Ball{
-    constructor(ctx){
+    constructor(ctx, player){
         this.ctx = ctx;
-        this.x = this.ctx.canvas.width / 2;
+        this.player = player;
+        this.x = this.player.x + this.player.width / 2;
         this.y = this.ctx.canvas.height - 150;
         this.r = 10;
         this.stAng = 0;
@@ -12,7 +13,7 @@ class Ball{
     }
 
     init(){
-        this.x = this.ctx.canvas.width / 2;
+        this.x = this.player.x + this.player.width / 2;
         this.y = this.ctx.canvas.height - 150;
         this.vx = parseInt(Math.random() * (12) - 6);
         this.vy = -7;
@@ -23,6 +24,7 @@ class Ball{
         this.x += this.vx;
         this.y += this.vy;
         this.status = 1;
+
     }
 
     draw(){

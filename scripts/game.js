@@ -6,7 +6,7 @@ class Game{
         this.player = player;
         this.ball = ball;
         this.frames = 0;
-        this.lifes = 4000;
+        this.lifes = 4;
         this.score = 0;
 
         document.addEventListener(
@@ -112,6 +112,7 @@ class Game{
         let topOfPlayer = this.player.y;
         let bottomOfPlayer = this.player.y + this.player.height;
 
+        /*
         const topImpact = (brick)=>{
             return (bottomOfBall > brick.y)
         };
@@ -124,6 +125,7 @@ class Game{
         const rightImpact = (brick)=>{
             return (leftOfBall < brick.x + this.bricks.brickWidth)
         };
+        */
        
 
         //player-walls collisions
@@ -134,19 +136,7 @@ class Game{
         for(let column = 0; column < this.bricks.brickColumns; column++){
             for(let row = 0; row < this.bricks.brickRows; row++){
 
-                let currentBrick = this.bricks.bricksArr[column][row];
                 /*
-                let topOfCurrentBrick = currentBrick.y;
-                let bottomOfCurrentBrick = currentBrick.y + this.bricks.brickHeight;
-                let leftOfCurrentBrick = currentBrick.x;
-                let rightOfCurrentBrick = currentBrick.x + this.bricks.brickWidth;
-
-                &&! bottomImpact(currentBrick) &&! leftImpact(currentBrick) &&! rightImpact(currentBrick)) ||
-                    (bottomImpact(currentBrick) &&! topImpact(currentBrick) &&! leftImpact(currentBrick) &&! rightImpact(currentBrick))
-                */
-
-
-
                 if(currentBrick.status === 1){
                     if((topImpact(currentBrick) &&! bottomImpact(currentBrick) &&! leftImpact(currentBrick) &&! rightImpact(currentBrick)) ||
                     (bottomImpact(currentBrick) &&! topImpact(currentBrick) &&! leftImpact(currentBrick) &&! rightImpact(currentBrick))){
@@ -178,9 +168,8 @@ class Game{
                     };
                     
                 }
+                */
                 
-
-                /*
                 let currentBrick = this.bricks.bricksArr[column][row];
                 let topOfCurrentBrick = currentBrick.y;
                 let bottomOfCurrentBrick = currentBrick.y + this.bricks.brickHeight;
@@ -203,7 +192,6 @@ class Game{
                             this.bricks.bricksArr.forEach((arr)=>{arr.filter((brick)=> {brick.status === 1})});
                         };
                 }
-                */
             }
         };
 
