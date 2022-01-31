@@ -9,7 +9,7 @@ class Bricks{
         this.brickOffsetTop = 50;
         this.brickOffsetLeft = 30;
         this.img = new Image();
-        this.img.src = "/images/brick.png";
+        this.img.src = "/images/status1block.png";
         this.bricksArr = [];
     }
 

@@ -3,10 +3,14 @@ class Ball{
         this.ctx = ctx;
         this.player = player;
         this.x = this.player.x + this.player.width / 2;
-        this.y = this.ctx.canvas.height - 150;
-        this.r = 10;
-        this.stAng = 0;
-        this.endAng = Math.PI * 2;
+        this.y = this.player.y - 20;
+        this.width = 10;
+        this.height = 10;
+        this.img = new Image();
+        this.src = "/images/fireball.png";
+        //this.r = 10;
+        //this.stAng = 0;
+        //this.endAng = Math.PI * 2;
         this.vx = parseInt(Math.random() * (12) - 6); //Math.random() * (max - min) + min
         this.vy = -7;
         this.status = 0;
@@ -14,7 +18,7 @@ class Ball{
 
     init(){
         this.x = this.player.x + this.player.width / 2;
-        this.y = this.ctx.canvas.height - 150;
+        this.y = this.player.y - 20;
         this.vx = parseInt(Math.random() * (12) - 6);
         this.vy = -7;
         this.status = 0;
@@ -28,10 +32,19 @@ class Ball{
     }
 
     draw(){
+        this.ctx.drawImage(
+            this.img,
+            this.x,
+            this.y,
+            this.width,
+            this.height
+        );
+        /*
         this.ctx.beginPath();
         this.ctx.arc(this.x, this.y, this.r, this.stAng, this.endAng);
         this.ctx.fillStyle = "#0095DD";
         this.ctx.fill();
         this.ctx.closePath();
+        */
     }
 }

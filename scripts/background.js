@@ -8,7 +8,7 @@ class Background{
             x: 0,
             y: 0
         };
-        this.background.img.src = "/images/background.jpg";
+        this.background.img.src = "/images/bg2.png";
     }
 
     init(){

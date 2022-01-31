@@ -4,15 +4,15 @@ class Player{
         this.width = 150;
         this.height = 30;
         this.x = (this.ctx.canvas.width / 2) - 50;
-        this.y = this.ctx.canvas.height - 130;
+        this.y = this.ctx.canvas.height - 50;
         this.vx = 0;
         this.img = new Image();
-        this.img.src = "/images/player-bar.png";
+        this.img.src = "/images/status3block.png";
     }
 
     init(){
         this.x = (this.ctx.canvas.width / 2) - 50;
-        this.y = this.ctx.canvas.height - 130;
+        this.y = this.ctx.canvas.height - 50;
         this.vx = 0;
     }
 
