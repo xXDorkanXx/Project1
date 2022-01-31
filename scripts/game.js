@@ -21,6 +21,9 @@ class Game{
                         this.player.rightMove();
                         if(this.player.x + this.player.width > this.ctx.canvas.width){this.player.x = this.ctx.canvas.width - this.player.width};
                         break;
+                    case " ":
+                        this.ball.move();
+                        break;
                 }
             }
         )
@@ -60,13 +63,15 @@ class Game{
         }
     }
 
+    move(){
+        if(this.ball.status === 1){
+            this.ball.move();
+        }
+    }
+
     stop(){
         cancelAnimationFrame(this.frames);
         this.frames = null;
-    }
-
-    move(){
-        this.ball.move();
     }
 
     draw(){
@@ -97,9 +102,9 @@ class Game{
 
     checkCollisions(){
 
-        let leftOfBall = this.ball.x;
+        let leftOfBall = this.ball.x - this.ball.r;
         let rightOfBall = this.ball.x + this.ball.r;
-        let topOfBall = this.ball.y;
+        let topOfBall = this.ball.y - this.ball.r;
         let bottomOfBall = this.ball.y + this.ball.r;
 
         let leftOfPlayer = this.player.x;
@@ -116,15 +121,15 @@ class Game{
         for(let column = 0; column < this.bricks.brickColumns; column++){
             for(let row = 0; row < this.bricks.brickRows; row++){
                 let currentBrick = this.bricks.bricksArr[column][row];
-                if(
-                    leftOfBall > currentBrick.x &&
-                    rightOfBall < currentBrick.x + this.bricks.brickWidth &&
-                    bottomOfBall > currentBrick.y &&
-                    topOfBall < currentBrick.y + this.bricks.brickHeight){
-                        this.ball.vy = -this.ball.vy;
-                        currentBrick.status = false;
-                        this.score++;
-                    }
+                if(currentBrick.status === 1){
+                    if(rightOfBall > currentBrick.x && leftOfBall < currentBrick.x + this.bricks.brickWidth && bottomOfBall > currentBrick.y && topOfBall < currentBrick.y + this.bricks.brickHeight){
+                            this.ball.vy = -this.ball.vy;
+                            currentBrick.status = 0;
+                            this.score++;
+                            this.bricks.bricksArr.forEach((arr)=>{arr.filter((brick)=> {brick.status === 1})});
+                        }
+                }
+                
             }
         };
 
@@ -133,8 +138,14 @@ class Game{
         if(rightOfBall > this.ctx.canvas.width || leftOfBall < this.ball.r) {this.ball.vx = -this.ball.vx}; //ball bounce at both sides of screen
         
         //ball-player collisions
-        if(bottomOfBall > topOfPlayer && bottomOfBall < bottomOfPlayer){ //ball bounce when collides with top of player
-            if(rightOfBall > leftOfPlayer && leftOfBall < rightOfPlayer){this.ball.vy = -this.ball.vy};
+        if(bottomOfBall > topOfPlayer && topOfBall < bottomOfPlayer && leftOfBall > leftOfPlayer && rightOfBall < rightOfPlayer){ //ball bounce when collides with top of player
+            this.ball.vy = -this.ball.vy;
+            if(rightOfBall < (this.player.x + (this.player.width / 2))){
+                if(this.ball.vx >= 0){this.ball.vx -= 5};
+            }
+            if(leftOfBall > (this.player.x + (this.player.width / 2))){
+                if(this.ball.vx <= 0){this.ball.vx += 5};
+            }
         };
     }
 
@@ -147,7 +158,7 @@ class Game{
     }
 
     checkWin(){
-        if(this.score === 4000){
+        if(this.score === 24){
             this.stop();
             this.ctx.save();
             this.ctx.fillStyle = "rgba(0, 0, 0, 0.7)";

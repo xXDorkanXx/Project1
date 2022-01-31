@@ -7,7 +7,7 @@ class Player{
         this.y = this.ctx.canvas.height - 130;
         this.vx = 0;
         this.img = new Image();
-        this.img.src = "/images/player-bar.png"
+        this.img.src = "/images/player-bar.png";
     }
 
     init(){
