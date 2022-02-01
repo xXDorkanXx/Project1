@@ -10,10 +10,16 @@ body{
     -webkit-text-stroke: 1px black;
     font-family: pixelFont;
     color: yellow;
+    margin: 0;
+    overflow: hidden;
+}
+
+#menu{
     display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+    position: absolute;
 }
 
 body button {
@@ -26,8 +32,27 @@ body button {
     margin-bottom: 20px;
 }
 
+#gameboard{
+    position: absolute;
+}
+
+#general{
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+	justify-content: center;
+	align-items: center;
+    margin: 0;
+}
+
 canvas{
     border: 2px solid black;
     cursor: none;
+}
+
+.hidden{
+    display: none;
 }
 

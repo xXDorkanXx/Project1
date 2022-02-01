@@ -8,10 +8,14 @@
     <link rel="stylesheet" href="styles/style.css">
 </head>
 <body>
-    <h1 id="title">My Awesome Game!</h1>
-    <button id="start-button">StartGame</button>
-    <div id="game-board">
-        <canvas id="canvas"></canvas>
+    <div id="general">
+        <div id="menu" >
+            <h1 id="title">My Awesome Game!</h1>
+            <button id="start-button">StartGame</button>
+        </div>
+        <div id="gameboard" class="hidden">
+            <canvas id="canvas"></canvas>
+        </div>
     </div>
     <script src="/scripts/background.js"></script>
     <script src="/scripts/bricks.js"></script>
