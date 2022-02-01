@@ -28,8 +28,6 @@ canvas.addEventListener(
   "mousemove",
   (event)=>{
       player.x = event.clientX - canvas_x - (player.width / 2);
-      console.log("event: ", event.clientX);
-      console.log("player: ", player.x);
       if(player.x <= 0){player.x = 0};
       if(player.x + player.width > ctx.canvas.width){player.x = ctx.canvas.width - player.width};
       if(game.gameState === 0){ball.x = player.x + player.width / 2};

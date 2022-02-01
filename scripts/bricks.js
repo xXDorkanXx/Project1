@@ -4,10 +4,10 @@ class Bricks{
         this.brickRows = 4;
         this.brickColumns = 6;
         this.brickWidth = 65;
-        this.brickHeight = 30;
+        this.brickHeight = 35;
         this.brickPadding = 30;
         this.brickOffsetTop = 50;
-        this.brickOffsetLeft = 30;
+        this.brickOffsetLeft = 50;
         this.img = new Image();
         this.img.src = "/images/aliens2.png";
         this.bricksArr = [];

@@ -9,6 +9,9 @@ class Game{
         this.lifes = 4;
         this.score = 0;
         this.gameState = 0;
+        this.themeAudio = new Audio("/sounds/theme.mp3");
+        this.bounceAudio = new Audio("/sounds/bounce.wav");
+        this.shootAudio = new Audio("/sounds/shoot.wav");
 
         window.addEventListener(
             "keydown",
@@ -17,6 +20,7 @@ class Game{
                     case " ":
                         this.ball.move();
                         this.gameState = 1;
+                        this.bounceAudio.play();
                         break;
                 }
             }
@@ -26,6 +30,7 @@ class Game{
     startGame(){
         this.init();
         this.play();
+        this.themeAudio.play();
     }
 
     init(){
@@ -120,6 +125,7 @@ class Game{
                             currentBrick.status--;
                             this.score++;
                             this.bricks.bricksArr.forEach((arr)=>{arr.filter((brick)=> {brick.status > 0})});
+                            this.shootAudio.play();
                         };
                     if(bottomOfBall < bottomOfCurrentBrick && topOfBall > topOfCurrentBrick && leftOfBall < leftOfCurrentBrick && rightOfBall > leftOfCurrentBrick ||
                         bottomOfBall < bottomOfCurrentBrick && topOfBall > topOfCurrentBrick && leftOfBall < rightOfCurrentBrick && rightOfBall > rightOfCurrentBrick){ //ball bounce left and right of bricks
@@ -127,6 +133,7 @@ class Game{
                             currentBrick.status--;
                             this.score++;
                             this.bricks.bricksArr.forEach((arr)=>{arr.filter((brick)=> {brick.status > 0})});
+                            this.shootAudio.play();
                         };
                     if(bottomOfBall > topOfCurrentBrick && topOfBall < topOfCurrentBrick && leftOfBall < leftOfCurrentBrick && rightOfBall > leftOfCurrentBrick ||
                         bottomOfBall > topOfCurrentBrick && topOfBall < topOfCurrentBrick && leftOfBall < rightOfCurrentBrick && rightOfBall > rightOfCurrentBrick ||
@@ -137,6 +144,7 @@ class Game{
                             currentBrick.status--;
                             this.score++;
                             this.bricks.bricksArr.forEach((arr)=>{arr.filter((brick)=> {brick.status > 0})});
+                            this.shootAudio.play();
                         };
                 }
             }
@@ -149,6 +157,7 @@ class Game{
         //ball-player collisions
         if(bottomOfBall > topOfPlayer && topOfBall < topOfPlayer && leftOfBall > leftOfPlayer && rightOfBall < rightOfPlayer){ //ball bounce when collides with top of player
             this.ball.vy = -(this.ball.vy + 1);
+            this.bounceAudio.play();
             if(rightOfBall < (this.player.x + (this.player.width / 2))){ //left side makes vx of ball negative
                if(this.ball.vx  >= 0 && this.ball.vx < 3){this.ball.vx += -7};
                if(this.ball.vx  > -4){this.ball.vx += -4};
@@ -162,12 +171,13 @@ class Game{
         if(rightOfBall > leftOfPlayer && leftOfBall < leftOfPlayer && topOfBall > topOfPlayer && bottomOfBall < bottomOfPlayer ||
             leftOfBall < rightOfPlayer && rightOfBall > rightOfPlayer && topOfBall > topOfPlayer && bottomOfBall < bottomOfPlayer){ //lateral player bounce
             this.ball.vx = -this.ball.vx;
+            this.bounceAudio.play();
         };
 
         if(rightOfBall > leftOfPlayer && leftOfBall < leftOfPlayer && topOfBall < topOfPlayer && bottomOfBall > topOfPlayer ||
             leftOfBall < rightOfPlayer && rightOfBall > rightOfPlayer && topOfBall < topOfPlayer && bottomOfBall > topOfPlayer){ //corner player bounce
             this.ball.vx = -(this.ball.vx + 3);
-            this.ball.vy = -this.ball.vy;
+            this.bounceAudio.play();
         };
         
     }
@@ -183,25 +193,31 @@ class Game{
 
     checkWin(){
         if(this.score === 24){
-            this.stop();
-            this.ctx.save();
-            this.ctx.fillStyle = "rgba(0, 0, 0, 0.7)";
-            this.ctx.fillRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
-            this.ctx.fillStyle = "white";
-            this.ctx.textAlign = "center";
-            this.ctx.font = "bold 32px sans-serif";
-            this.ctx.fillText(
-                "You win!!",
-                this.ctx.canvas.width / 2,
-                this.ctx.canvas.height / 2
-            );
-            this.ctx.restore();
+            setTimeout(
+                ()=>{
+                    this.stop();
+                    this.themeAudio.pause();
+                    this.ctx.save();
+                    this.ctx.fillStyle = "rgba(0, 0, 0, 0.7)";
+                    this.ctx.fillRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
+                    this.ctx.fillStyle = "white";
+                    this.ctx.textAlign = "center";
+                    this.ctx.font = "bold 32px sans-serif";
+                    this.ctx.fillText(
+                        "You win!!",
+                        this.ctx.canvas.width / 2,
+                        this.ctx.canvas.height / 2
+                    );
+                    this.ctx.restore();
+                }, 17
+            )
         }
     }
 
     checkGameOver(){
         if(this.lifes <= 0){
             this.stop();
+            this.themeAudio.pause();
             this.ctx.save();
             this.ctx.fillStyle = "rgba(0, 0, 0, 0.7)";
             this.ctx.fillRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
