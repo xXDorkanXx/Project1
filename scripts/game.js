@@ -12,6 +12,10 @@ class Game{
         this.themeAudio = new Audio("/sounds/theme.mp3");
         this.bounceAudio = new Audio("/sounds/bounce.wav");
         this.shootAudio = new Audio("/sounds/shoot.wav");
+        this.gameboard = document.getElementById("gameboard");
+        this.menu = document.getElementById("menu");
+        this.startButton = document.getElementById("start-button");
+        this.title = document.getElementById("title");
 
         window.addEventListener(
             "keydown",
@@ -36,6 +40,8 @@ class Game{
     init(){
         if(this.frames) this.stop();
         this.frames = 0;
+        this.lifes = 4;
+        this.score = 0;
         this.background.init();
         this.bricks.init();
         this.player.init();
@@ -55,6 +61,7 @@ class Game{
     }
 
     move(){
+        this.background.move();
         if(this.ball.status === 1){
             this.ball.move();
         }
@@ -78,16 +85,22 @@ class Game{
     drawScore(){
         this.ctx.save();
         this.ctx.fillStyle = "white";
-        this.ctx.font = "bold 24px sans-serif";
-        this.ctx.fillText(`Score: ${this.score} pts`, 20, 40);
+        this.ctx.font
+        this.ctx.font = "normal 24px pixelFont";
+        //this.ctx.font = "bold 24px sans-serif";
+        this.ctx.fillText(`Score: ${this.score} pts`, 20, 32);
+        this.ctx.strokeStyle = "black";
+        this.ctx.strokeText(`Score: ${this.score} pts`, 20, 32);
         this.ctx.restore();
     }
 
     drawLifes(){
         this.ctx.save();
         this.ctx.fillStyle = "white";
-        this.ctx.font = "bold 24px sans-serif";
-        this.ctx.fillText(`Lifes: ${this.lifes}`, this.ctx.canvas.width - 150, 40);
+        this.ctx.font = "normal 26px pixelFont";
+        this.ctx.fillText(`Lifes: ${this.lifes}`, this.ctx.canvas.width - 100, 32);
+        this.ctx.strokeStyle = "black";
+        this.ctx.strokeText(`Lifes: ${this.lifes}`, this.ctx.canvas.width - 100, 32);
         this.ctx.restore();
     }
 
@@ -193,24 +206,12 @@ class Game{
 
     checkWin(){
         if(this.score === 24){
-            setTimeout(
-                ()=>{
-                    this.stop();
-                    this.themeAudio.pause();
-                    this.ctx.save();
-                    this.ctx.fillStyle = "rgba(0, 0, 0, 0.7)";
-                    this.ctx.fillRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
-                    this.ctx.fillStyle = "white";
-                    this.ctx.textAlign = "center";
-                    this.ctx.font = "bold 32px sans-serif";
-                    this.ctx.fillText(
-                        "You win!!",
-                        this.ctx.canvas.width / 2,
-                        this.ctx.canvas.height / 2
-                    );
-                    this.ctx.restore();
-                }, 17
-            )
+            this.stop();
+            this.themeAudio.pause();
+            this.startButton.innerText = "Play Again";
+            this.title.innerText = "You Win!";
+            this.gameboard.classList.toggle("hidden");
+            this.menu.classList.toggle("hidden");
         }
     }
 
@@ -218,18 +219,10 @@ class Game{
         if(this.lifes <= 0){
             this.stop();
             this.themeAudio.pause();
-            this.ctx.save();
-            this.ctx.fillStyle = "rgba(0, 0, 0, 0.7)";
-            this.ctx.fillRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
-            this.ctx.fillStyle = "white";
-            this.ctx.textAlign = "center";
-            this.ctx.font = "bold 32px sans-serif";
-            this.ctx.fillText(
-                "Game Over",
-                this.ctx.canvas.width / 2,
-                this.ctx.canvas.height / 2
-            );
-            this.ctx.restore();
+            this.startButton.innerText = "Play Again";
+            this.title.innerText = `Game Over \nScore: ${this.score}`;
+            this.gameboard.classList.toggle("hidden");
+            this.menu.classList.toggle("hidden");
         }
     }
 };

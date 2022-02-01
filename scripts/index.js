@@ -15,8 +15,7 @@ const game = new Game(ctx, background, bricks, player, ball);
 const startButton = document.getElementById("start-button");
 const gameboard = document.getElementById("gameboard");
 const menu = document.getElementById("menu");
-const general = document.getElementById("general");
-
+const title = document.getElementById("title");
 let canvasX;
 
 startButton.onclick = ()=> {
@@ -24,8 +23,8 @@ startButton.onclick = ()=> {
   canvas.focus();
   gameboard.classList.toggle("hidden");
   menu.classList.toggle("hidden");
-  game.startGame();
   canvasX = gameboard.getBoundingClientRect().left;
+  game.startGame();
 };
 
 canvas.addEventListener(
