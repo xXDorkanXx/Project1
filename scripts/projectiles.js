@@ -13,25 +13,28 @@ class Projectiles{
     }
 
     move(frames){
-        if(frames % 50 === 0){
+        if(frames % 30 === 0){
             console.log(frames)
             this.projectiles.push(this.getNewProjectile())
         }
 
         this.projectiles.forEach((projectile)=>{
             projectile.y += projectile.vy;
-            if(projectile.y > this.ctx.canvas.height) this.projectiles = this.projectiles.filter((projectile)=>projectile);
+            //if(projectile.y < this.ctx.canvas.height) this.projectiles = this.projectiles.filter((projectile)=>projectile);
         })
     }
 
     getNewProjectile(){
 
-        let randomX = this.randomShooterBrick().x + (this.bricks.brickWidth / 2);
-        let randomY = this.randomShooterBrick().y;
+        let randomBrick = this.randomShooterBrick()
+        let randomX = randomBrick.x + (this.bricks.brickWidth / 2);
+        let randomY = randomBrick.y;
+        let brickStatus = randomBrick.status;
 
         const newProjectile = {
             x: randomX,
             y: randomY,
+            status: brickStatus,
             vy: this.vy,
             r: this.r,
             stAng: this.stAng,
@@ -63,14 +66,17 @@ class Projectiles{
 
     draw(){
         this.projectiles.forEach((projectile)=>{
-            this.ctx.beginPath();
-            this.ctx.arc(projectile.x, projectile.y, projectile.r, projectile.stAng, projectile.endAng);
-            this.ctx.fillStyle = "lightgoldenrodyellow";
-            this.ctx.fill();
-            this.ctx.strokeStyle = "orange";
-            this.ctx.lineWidth = 2;
-            this.ctx.stroke();
-            this.ctx.closePath();
+            if(projectile.status === 1){
+                this.ctx.beginPath();
+                this.ctx.arc(projectile.x, projectile.y, projectile.r, projectile.stAng, projectile.endAng);
+                this.ctx.fillStyle = "lightgoldenrodyellow";
+                this.ctx.fill();
+                this.ctx.strokeStyle = "orange";
+                this.ctx.lineWidth = 2;
+                this.ctx.stroke();
+                this.ctx.closePath();
+            }
         })
+        
     }
 };
