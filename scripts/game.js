@@ -10,33 +10,15 @@ class Game{
         this.score = 0;
         this.gameState = 0;
 
-        document.addEventListener(
+        window.addEventListener(
             "keydown",
             (event)=>{
                 switch(event.key){
-                    case "ArrowLeft":
-                        this.player.leftMove();
-                        if(this.gameState === 0){this.ball.x = this.player.x + this.player.width / 2}
-                        if(this.player.x <= 0){this.player.x = 0};
-                        break;
-                    case "ArrowRight":
-                        this.player.rightMove();
-                        if(this.gameState === 0){this.ball.x = this.player.x + this.player.width / 2}
-                        if(this.player.x + this.player.width > this.ctx.canvas.width){this.player.x = this.ctx.canvas.width - this.player.width};
-                        break;
                     case " ":
                         this.ball.move();
                         this.gameState = 1;
                         break;
                 }
-            }
-        )
-
-        document.addEventListener(
-            "keyup",
-            ()=>{
-                this.player.vx = 0;
-                this.player.x += this.player.vx;
             }
         )
     }
@@ -90,7 +72,7 @@ class Game{
 
     drawScore(){
         this.ctx.save();
-        this.ctx.fillStyle = "black";
+        this.ctx.fillStyle = "white";
         this.ctx.font = "bold 24px sans-serif";
         this.ctx.fillText(`Score: ${this.score} pts`, 20, 40);
         this.ctx.restore();
@@ -98,7 +80,7 @@ class Game{
 
     drawLifes(){
         this.ctx.save();
-        this.ctx.fillStyle = "black";
+        this.ctx.fillStyle = "white";
         this.ctx.font = "bold 24px sans-serif";
         this.ctx.fillText(`Lifes: ${this.lifes}`, this.ctx.canvas.width - 150, 40);
         this.ctx.restore();
@@ -106,9 +88,6 @@ class Game{
 
 
     checkCollisions(){
-       // this.ball.checkCollision();
-
-
 
         let leftOfBall = this.ball.x - this.ball.r;
         let rightOfBall = this.ball.x + this.ball.r;
@@ -118,24 +97,7 @@ class Game{
         let leftOfPlayer = this.player.x;
         let rightOfPlayer = this.player.x + this.player.width;
         let topOfPlayer = this.player.y;
-        let bottomOfPlayer = this.player.y + this.player.height;
-
-        /*
-        const topImpact = (brick)=>{
-            return (bottomOfBall > brick.y)
-        };
-        const bottomImpact = (brick)=>{
-            return (topOfBall < brick.y + this.bricks.brickHeight)
-        };
-        const leftImpact = (brick)=>{
-            return (rightOfBall > brick.x)
-        };
-        const rightImpact = (brick)=>{
-            return (leftOfBall < brick.x + this.bricks.brickWidth)
-        };
-        */
-        
-       
+        let bottomOfPlayer = this.player.y + this.player.height;   
 
         //player-walls collisions
         if(leftOfPlayer <= this.ball.r){leftOfPlayer = 0}; //prevents player go off screen by left side
@@ -144,40 +106,6 @@ class Game{
         //ball-bricks collisions
         for(let column = 0; column < this.bricks.brickColumns; column++){
             for(let row = 0; row < this.bricks.brickRows; row++){
-
-                /*
-                if(currentBrick.status === 1){
-                    if((topImpact(currentBrick) &&! bottomImpact(currentBrick) &&! leftImpact(currentBrick) &&! rightImpact(currentBrick)) ||
-                    (bottomImpact(currentBrick) &&! topImpact(currentBrick) &&! leftImpact(currentBrick) &&! rightImpact(currentBrick))){
-                        console.log("test")
-                        this.ball.vy = -this.ball.vy;
-                        currentBrick.status = 0;
-                        this.score++;
-                        this.bricks.bricksArr.forEach((arr)=>{arr.filter((brick)=> {brick.status === 1})});
-                    };
-
-                    
-                    if((leftImpact(currentBrick) &&! bottomImpact(currentBrick) &&! topImpact(currentBrick) &&! rightImpact(currentBrick)) ||
-                    (rightImpact(currentBrick) &&! topImpact(currentBrick) &&! leftImpact(currentBrick) &&! bottomImpact(currentBrick))){
-                        this.ball.vx = -this.ball.vx;
-                        currentBrick.status = 0;
-                        this.score++;
-                        this.bricks.bricksArr.forEach((arr)=>{arr.filter((brick)=> {brick.status === 1})});
-                    };
-
-                    if((topImpact(currentBrick) && leftImpact(currentBrick) &&! bottomImpact(currentBrick) &&! rightImpact(currentBrick)) ||
-                    (topImpact(currentBrick) && rightImpact(currentBrick) &&! leftImpact(currentBrick) &&! bottomImpact(currentBrick)) ||
-                    (bottomImpact(currentBrick) && leftImpact(currentBrick) &&! rightImpact(currentBrick) &&! topImpact(currentBrick)) ||
-                    (bottomImpact(currentBrick) && rightImpact(currentBrick) &&! leftImpact(currentBrick) &&! topImpact(currentBrick))){
-                        this.ball.vy = -this.ball.vy;
-                        this.ball.vx = -this.ball.vx;
-                        currentBrick.status = 0;
-                        this.score++;
-                        this.bricks.bricksArr.forEach((arr)=>{arr.filter((brick)=> {brick.status === 1})});
-                    };
-                    
-                }
-                */
                 
                 let currentBrick = this.bricks.bricksArr[column][row];
                 let topOfCurrentBrick = currentBrick.y;
@@ -188,7 +116,7 @@ class Game{
                 if(currentBrick.status > 0){
                     if(bottomOfBall > topOfCurrentBrick && topOfBall < topOfCurrentBrick && leftOfBall > leftOfCurrentBrick && rightOfBall < rightOfCurrentBrick ||
                         bottomOfBall > bottomOfCurrentBrick && topOfBall < bottomOfCurrentBrick && leftOfBall > leftOfCurrentBrick && rightOfBall < rightOfCurrentBrick){ //ball bounce top and bottom of bricks
-                            this.ball.vy = -this.ball.vy;
+                            this.ball.vy = -(this.ball.vy + 1);
                             currentBrick.status--;
                             this.score++;
                             this.bricks.bricksArr.forEach((arr)=>{arr.filter((brick)=> {brick.status > 0})});
@@ -196,6 +124,16 @@ class Game{
                     if(bottomOfBall < bottomOfCurrentBrick && topOfBall > topOfCurrentBrick && leftOfBall < leftOfCurrentBrick && rightOfBall > leftOfCurrentBrick ||
                         bottomOfBall < bottomOfCurrentBrick && topOfBall > topOfCurrentBrick && leftOfBall < rightOfCurrentBrick && rightOfBall > rightOfCurrentBrick){ //ball bounce left and right of bricks
                             this.ball.vx = -this.ball.vx;
+                            currentBrick.status--;
+                            this.score++;
+                            this.bricks.bricksArr.forEach((arr)=>{arr.filter((brick)=> {brick.status > 0})});
+                        };
+                    if(bottomOfBall > topOfCurrentBrick && topOfBall < topOfCurrentBrick && leftOfBall < leftOfCurrentBrick && rightOfBall > leftOfCurrentBrick ||
+                        bottomOfBall > topOfCurrentBrick && topOfBall < topOfCurrentBrick && leftOfBall < rightOfCurrentBrick && rightOfBall > rightOfCurrentBrick ||
+                        topOfBall < bottomOfCurrentBrick && bottomOfBall > bottomOfCurrentBrick && leftOfBall < leftOfCurrentBrick && rightOfBall > leftOfCurrentBrick ||
+                        topOfBall < bottomOfCurrentBrick && bottomOfBall > bottomOfCurrentBrick && leftOfBall < rightOfCurrentBrick && rightOfBall > rightOfCurrentBrick){ //ball bounce corners of bricks
+                            this.ball.vx = -this.ball.vx + 1;
+                            this.ball.vy = -(this.ball.vy + 1);
                             currentBrick.status--;
                             this.score++;
                             this.bricks.bricksArr.forEach((arr)=>{arr.filter((brick)=> {brick.status > 0})});
@@ -210,19 +148,27 @@ class Game{
         
         //ball-player collisions
         if(bottomOfBall > topOfPlayer && topOfBall < topOfPlayer && leftOfBall > leftOfPlayer && rightOfBall < rightOfPlayer){ //ball bounce when collides with top of player
-            this.ball.vy = -this.ball.vy;
+            this.ball.vy = -(this.ball.vy + 1);
             if(rightOfBall < (this.player.x + (this.player.width / 2))){ //left side makes vx of ball negative
-                if(this.ball.vx >= 0){this.ball.vx -= 5};
+               if(this.ball.vx  >= 0 && this.ball.vx < 3){this.ball.vx += -7};
+               if(this.ball.vx  > -4){this.ball.vx += -4};
             }
             if(leftOfBall > (this.player.x + (this.player.width / 2))){ //right side makes vx of ball positive
-                if(this.ball.vx <= 0){this.ball.vx += 5};
+               if(this.ball.vx <= 0  && this.ball.vx > -3){this.ball.vx += 7};
+               if(this.ball.vx  < 4){this.ball.vx += 4};
             }
         };
 
         if(rightOfBall > leftOfPlayer && leftOfBall < leftOfPlayer && topOfBall > topOfPlayer && bottomOfBall < bottomOfPlayer ||
             leftOfBall < rightOfPlayer && rightOfBall > rightOfPlayer && topOfBall > topOfPlayer && bottomOfBall < bottomOfPlayer){ //lateral player bounce
             this.ball.vx = -this.ball.vx;
-        }
+        };
+
+        if(rightOfBall > leftOfPlayer && leftOfBall < leftOfPlayer && topOfBall < topOfPlayer && bottomOfBall > topOfPlayer ||
+            leftOfBall < rightOfPlayer && rightOfBall > rightOfPlayer && topOfBall < topOfPlayer && bottomOfBall > topOfPlayer){ //corner player bounce
+            this.ball.vx = -(this.ball.vx + 3);
+            this.ball.vy = -this.ball.vy;
+        };
         
     }
 

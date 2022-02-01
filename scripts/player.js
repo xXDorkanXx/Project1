@@ -3,7 +3,7 @@ class Player{
         this.ctx = ctx;
         this.width = 150;
         this.height = 30;
-        this.x = (this.ctx.canvas.width / 2) - 50;
+        this.x = 0;//(this.ctx.canvas.width / 2) - 50;
         this.y = this.ctx.canvas.height - 50;
         this.vx = 0;
         this.img = new Image();
@@ -11,19 +11,9 @@ class Player{
     }
 
     init(){
-        this.x = (this.ctx.canvas.width / 2) - 50;
+        this.x = 0;//(this.ctx.canvas.width / 2) - 50;
         this.y = this.ctx.canvas.height - 50;
         this.vx = 0;
-    }
-
-    leftMove(){
-        this.vx = -15;
-        this.x += this.vx;
-    }
-
-    rightMove(){
-        this.vx = 15;
-        this.x += this.vx;
     }
 
     draw(){
