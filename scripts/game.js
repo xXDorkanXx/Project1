@@ -1,10 +1,11 @@
 class Game{
-    constructor(ctx, background, bricks, player, ball){
+    constructor(ctx, background, bricks, player, ball, projectiles){
         this.ctx = ctx;
         this.background = background;
         this.bricks = bricks;
         this.player = player;
         this.ball = ball;
+        this.projectiles = projectiles;
         this.frames = 0;
         this.lifes = 4;
         this.score = 0;
@@ -61,6 +62,7 @@ class Game{
     }
 
     move(){
+        this.projectiles.move(this.frames);
         this.background.move();
         if(this.ball.status === 1){
             this.ball.move();
@@ -78,6 +80,7 @@ class Game{
         this.player.draw();
         this.ball.draw();
         this.bricks.draw();
+        this.projectiles.draw();
         this.drawScore();
         this.drawLifes();
     }
@@ -85,9 +88,7 @@ class Game{
     drawScore(){
         this.ctx.save();
         this.ctx.fillStyle = "white";
-        this.ctx.font
-        this.ctx.font = "normal 24px pixelFont";
-        //this.ctx.font = "bold 24px sans-serif";
+        this.ctx.font = "normal 26px pixelFont";
         this.ctx.fillText(`Score: ${this.score} pts`, 20, 32);
         this.ctx.strokeStyle = "black";
         this.ctx.strokeText(`Score: ${this.score} pts`, 20, 32);
