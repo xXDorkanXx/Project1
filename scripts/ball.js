@@ -7,7 +7,7 @@ class Ball {
     this.r = 10;
     this.stAng = 0;
     this.endAng = Math.PI * 2;
-    this.vx = parseInt(Math.random() * 12 - 6); //Math.random() * (max - min) + min
+    this.vx = parseInt(Math.random() * 12 - 6);
     this.vy = -7;
     this.status = 0;
   }

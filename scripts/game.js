@@ -13,6 +13,8 @@ class Game{
         this.themeAudio = new Audio("/sounds/theme.mp3");
         this.bounceAudio = new Audio("/sounds/bounce.wav");
         this.shootAudio = new Audio("/sounds/shoot.wav");
+        this.hitAudio = new Audio("/sounds/hit.wav");
+        this.explosionAudio = new Audio("/sounds/explosion.wav");
         this.gameboard = document.getElementById("gameboard");
         this.menu = document.getElementById("menu");
         this.startButton = document.getElementById("start-button");
@@ -116,7 +118,7 @@ class Game{
         let leftOfPlayer = this.player.x;
         let rightOfPlayer = this.player.x + this.player.width;
         let topOfPlayer = this.player.y;
-        let bottomOfPlayer = this.player.y + this.player.height;   
+        let bottomOfPlayer = this.player.y + this.player.height;
 
         //player-walls collisions
         if(leftOfPlayer <= this.ball.r){leftOfPlayer = 0}; //prevents player go off screen by left side
@@ -194,11 +196,26 @@ class Game{
             this.bounceAudio.play();
         };
         
+        //projectiles-player collisions
+        this.projectiles.projectiles.forEach((projectile)=>{
+            let leftOfProjectile = projectile.x - projectile.r;
+            let rightOfProjectile = projectile.x + projectile.r;
+            let topOfProjectile = projectile.y - projectile.r;
+            let bottomOfProjectile = projectile.y + projectile.r;
+            if(projectile.status > 0){
+                if(bottomOfProjectile > topOfPlayer && topOfProjectile < topOfPlayer && leftOfProjectile > leftOfPlayer && rightOfProjectile < rightOfPlayer){
+                    this.lifes--;
+                    projectile.status--;
+                    this.hitAudio.play();
+                }
+            }
+        })
     }
 
     checkLifes(){
         if(this.ball.y + this.ball.r > this.ctx.canvas.height){
             this.lifes--;
+            this.explosionAudio.play();
             this.player.init();
             this.ball.init();
             this.gameState = 0;

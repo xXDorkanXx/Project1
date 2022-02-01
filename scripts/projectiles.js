@@ -10,17 +10,17 @@ class Projectiles{
         this.y;
         this.vy = 5;
         this.projectiles = [];
+        this.enemieShootAudio = new Audio("/sounds/enemie_shoot2.wav");
     }
 
     move(frames){
-        if(frames % 30 === 0){
+        if(frames % 25 === 0){
             console.log(frames)
-            this.projectiles.push(this.getNewProjectile())
+            this.projectiles.push(this.getNewProjectile());
         }
 
         this.projectiles.forEach((projectile)=>{
             projectile.y += projectile.vy;
-            //if(projectile.y < this.ctx.canvas.height) this.projectiles = this.projectiles.filter((projectile)=>projectile);
         })
     }
 
@@ -35,6 +35,7 @@ class Projectiles{
             x: randomX,
             y: randomY,
             status: brickStatus,
+            soundStatus: 1,
             vy: this.vy,
             r: this.r,
             stAng: this.stAng,
@@ -51,17 +52,6 @@ class Projectiles{
 
         return this.bricks.bricksArr[randomColumn][randomRow];
 
-        /*
-        let randomColumn = Math.floor(Math.random() * 6);
-        let randomRow = Math.floor(Math.random() * 4);
-
-        let randomBrick = this.bricks.bricksArr[randomColumn][randomRow];
-
-        if(randomBrick === undefined) this.randomShooterBrick;
-        if(randomBrick.status === 0) this.randomShooterBrick;
-        if(randomBrick.status === 1) return randomBrick;
-        */
-
     }
 
     draw(){
@@ -75,6 +65,10 @@ class Projectiles{
                 this.ctx.lineWidth = 2;
                 this.ctx.stroke();
                 this.ctx.closePath();
+                if(projectile.soundStatus === 1){
+                    this.enemieShootAudio.play();
+                    projectile.soundStatus = 0;
+                }
             }
         })
         
