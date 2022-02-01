@@ -203,7 +203,8 @@ class Game{
             let topOfProjectile = projectile.y - projectile.r;
             let bottomOfProjectile = projectile.y + projectile.r;
             if(projectile.status > 0){
-                if(bottomOfProjectile > topOfPlayer && topOfProjectile < topOfPlayer && leftOfProjectile > leftOfPlayer && rightOfProjectile < rightOfPlayer){
+                if(bottomOfProjectile > topOfPlayer && topOfProjectile < topOfPlayer && leftOfProjectile > leftOfPlayer && rightOfProjectile < rightOfPlayer ||
+                    bottomOfProjectile < bottomOfPlayer && topOfProjectile < topOfPlayer && leftOfProjectile > leftOfPlayer && rightOfProjectile < rightOfPlayer){
                     this.lifes--;
                     projectile.status--;
                     this.hitAudio.play();
