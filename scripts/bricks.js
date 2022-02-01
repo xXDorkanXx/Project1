@@ -3,13 +3,13 @@ class Bricks{
         this.ctx = ctx;
         this.brickRows = 4;
         this.brickColumns = 6;
-        this.brickWidth = 70;
-        this.brickHeight = 25;
+        this.brickWidth = 65;
+        this.brickHeight = 30;
         this.brickPadding = 30;
         this.brickOffsetTop = 50;
         this.brickOffsetLeft = 30;
         this.img = new Image();
-        this.img.src = "/images/status1block.png";
+        this.img.src = "/images/aliens2.png";
         this.bricksArr = [];
     }
 

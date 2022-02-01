@@ -29,8 +29,11 @@ class Ball {
   draw() {
     this.ctx.beginPath();
     this.ctx.arc(this.x, this.y, this.r, this.stAng, this.endAng);
-    this.ctx.fillStyle = "white";
+    this.ctx.fillStyle = "lightgoldenrodyellow";
     this.ctx.fill();
+    this.ctx.strokeStyle = "orange";
+    this.ctx.lineWidth = 2;
+    this.ctx.stroke();
     this.ctx.closePath();
   }
 }

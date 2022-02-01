@@ -7,7 +7,7 @@ class Player{
         this.y = this.ctx.canvas.height - 50;
         this.vx = 0;
         this.img = new Image();
-        this.img.src = "/images/status3block.png";
+        this.img.src = "/images/satellite.png";
     }
 
     init(){
