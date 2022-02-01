@@ -45,6 +45,7 @@ class Game{
         this.frames = 0;
         this.lifes = 4;
         this.score = 0;
+        this.projectiles.projectiles = [];
         this.background.init();
         this.bricks.init();
         this.player.init();
