@@ -19,7 +19,7 @@ class Game{
         this.spriteColumns = 4;
         this.spriteRows = 1;
         this.spriteCol = 3;
-        this.spriteRow = 0,
+        this.spriteRow = 0;
         this.spriteX = 0;
         this.spriteY = 0;
         this.spriteWidth = 480;
@@ -31,6 +31,7 @@ class Game{
         this.hitAudio = new Audio("/sounds/hit.wav");
         this.explosionAudio = new Audio("/sounds/explosion.wav");
         this.gameOverAudio = new Audio("/sounds/gameover.wav");
+        this.winAudio = new Audio("/sounds/win.wav");
 
         this.gameboard = document.getElementById("gameboard");
         this.menu = document.getElementById("menu");
@@ -128,7 +129,7 @@ class Game{
             26,
             42
         );
-        
+
         this.ctx.save();
         this.ctx.fillStyle = "white";
         this.ctx.font = "normal 26px pixelFont";
@@ -283,6 +284,7 @@ class Game{
         if(this.score === 24){
             this.stop();
             this.themeAudio.pause();
+            this.winAudio.play();
             this.startButton.innerText = "Play Again";
             this.title.innerText = "You Win!";
             this.gameboard.classList.toggle("hidden");
