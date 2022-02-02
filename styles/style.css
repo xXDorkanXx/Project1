@@ -18,9 +18,9 @@ body{
 
 #menu{
     display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     position: absolute;
 }
 
@@ -38,8 +38,8 @@ h1{
     position: relative;
     display: flex;
     flex-direction: column;
-	justify-content: center;
-	align-items: center;
+    justify-content: center;
+    align-items: center;
     margin: 0;
 }
 

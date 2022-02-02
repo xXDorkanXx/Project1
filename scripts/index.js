@@ -12,8 +12,6 @@ const ball = new Ball(ctx, player);
 
 const game = new Game(ctx, background, bricks, player, ball, projectiles);
 
-const btnAudio = new Audio("/sounds/glitch.wav");
-
 
 const startButton = document.getElementById("start-button");
 const gameboard = document.getElementById("gameboard");
@@ -21,7 +19,9 @@ const menu = document.getElementById("menu");
 let canvasX;
 
 
+const btnAudio = new Audio("/sounds/glitch.wav");
 startButton.onmouseover = function(){btnAudio.play()};
+
 
 startButton.onclick = ()=> {
   startButton.blur();
