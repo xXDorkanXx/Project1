@@ -6,15 +6,32 @@ class Game{
         this.player = player;
         this.ball = ball;
         this.projectiles = projectiles;
+
         this.frames = 0;
         this.lifes = 4;
         this.score = 0;
         this.gameState = 0;
+
+        this.img = new Image();
+        this.img.src = "/images/lifes_sprite.png";
+        this.x = this.ctx.canvas.width - 140;
+        this.y = 7;
+        this.spriteColumns = 4;
+        this.spriteRows = 1;
+        this.spriteCol = 3;
+        this.spriteRow = 0,
+        this.spriteX = 0;
+        this.spriteY = 0;
+        this.spriteWidth = 480;
+        this.spriteHeight = 960;
+
         this.themeAudio = new Audio("/sounds/theme.mp3");
         this.bounceAudio = new Audio("/sounds/bounce.wav");
         this.shootAudio = new Audio("/sounds/shoot.wav");
         this.hitAudio = new Audio("/sounds/hit.wav");
         this.explosionAudio = new Audio("/sounds/explosion.wav");
+        this.gameOverAudio = new Audio("/sounds/gameover.wav");
+
         this.gameboard = document.getElementById("gameboard");
         this.menu = document.getElementById("menu");
         this.startButton = document.getElementById("start-button");
@@ -45,6 +62,10 @@ class Game{
         this.frames = 0;
         this.lifes = 4;
         this.score = 0;
+        this.spriteCol = 3;
+        this.spriteRow = 0;
+        this.spriteX = 0;
+        this.spriteY = 0;
         this.background.init();
         this.bricks.init();
         this.player.init();
@@ -62,6 +83,14 @@ class Game{
         if(this.frames !== null){
             this.frames = requestAnimationFrame(this.play.bind(this));
         }
+    }
+
+    setSprite(){
+
+        this.spriteCol = this.lifes - 1;
+
+        this.spriteX = (this.spriteWidth * this.spriteCol);
+        this.spriteY = (this.spriteHeight * this.spriteRow);
     }
 
     move(){
@@ -92,20 +121,33 @@ class Game{
         this.ctx.save();
         this.ctx.fillStyle = "white";
         this.ctx.font = "normal 26px pixelFont";
-        this.ctx.fillText(`Score: ${this.score} pts`, 20, 32);
+        this.ctx.fillText(`Score: ${this.score} pts`, 20, 37);
         this.ctx.strokeStyle = "black";
-        this.ctx.strokeText(`Score: ${this.score} pts`, 20, 32);
+        this.ctx.strokeText(`Score: ${this.score} pts`, 20, 37);
         this.ctx.restore();
     }
 
     drawLifes(){
+        this.setSprite();
+        this.ctx.drawImage(
+            this.img,
+            this.spriteX,
+            this.spriteY,
+            this.spriteWidth,
+            this.spriteHeight,
+            this.x,
+            this.y,
+            26,
+            42
+        );
         this.ctx.save();
         this.ctx.fillStyle = "white";
         this.ctx.font = "normal 26px pixelFont";
-        this.ctx.fillText(`Lifes: ${this.lifes}`, this.ctx.canvas.width - 100, 32);
+        this.ctx.fillText(`Lifes: ${this.lifes}`, this.ctx.canvas.width - 100, 37);
         this.ctx.strokeStyle = "black";
-        this.ctx.strokeText(`Lifes: ${this.lifes}`, this.ctx.canvas.width - 100, 32);
+        this.ctx.strokeText(`Lifes: ${this.lifes}`, this.ctx.canvas.width - 100, 37);
         this.ctx.restore();
+        this.setSprite();
     }
 
 
@@ -259,6 +301,7 @@ class Game{
             this.title.innerText = `Game Over \nScore: ${this.score}`;
             this.gameboard.classList.toggle("hidden");
             this.menu.classList.toggle("hidden");
+            this.gameOverAudio.play();
         }
     }
 };

@@ -18,7 +18,7 @@ class Projectiles{
     }
 
     move(frames){
-        if(frames % 25 === 0){
+        if(frames % 30 === 0){
             console.log(frames)
             this.projectiles.push(this.getNewProjectile());
         }
