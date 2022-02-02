@@ -10,7 +10,7 @@ class Projectiles{
         this.y;
         this.vy = 5;
         this.projectiles = [];
-        this.enemieShootAudio = new Audio("/sounds/enemie_shoot2.wav");
+        this.enemieShootAudio = new Audio("/sounds/enemie_shoot.wav");
     }
 
     init(){

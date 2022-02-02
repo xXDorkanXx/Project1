@@ -25,9 +25,9 @@ class Game{
         this.spriteWidth = 480;
         this.spriteHeight = 960;
 
-        this.themeAudio = new Audio("/sounds/theme.mp3");
+        this.themeAudio = new Audio("/sounds/main_theme.mp3");
         this.bounceAudio = new Audio("/sounds/bounce.wav");
-        this.shootAudio = new Audio("/sounds/shoot.wav");
+        this.shootAudio = new Audio("/sounds/player_shoot.wav");
         this.hitAudio = new Audio("/sounds/hit.wav");
         this.explosionAudio = new Audio("/sounds/explosion.wav");
         this.gameOverAudio = new Audio("/sounds/gameover.wav");
