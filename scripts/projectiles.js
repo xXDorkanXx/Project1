@@ -13,7 +13,9 @@ class Projectiles{
         this.enemieShootAudio = new Audio("/sounds/enemie_shoot2.wav");
     }
 
-    //init();
+    init(){
+        this.projectiles.projectiles = [];
+    }
 
     move(frames){
         if(frames % 25 === 0){

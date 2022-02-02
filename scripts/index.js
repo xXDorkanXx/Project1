@@ -12,12 +12,16 @@ const ball = new Ball(ctx, player);
 
 const game = new Game(ctx, background, bricks, player, ball, projectiles);
 
+const btnAudio = new Audio("/sounds/glitch.wav");
+
 
 const startButton = document.getElementById("start-button");
 const gameboard = document.getElementById("gameboard");
 const menu = document.getElementById("menu");
-const title = document.getElementById("title");
 let canvasX;
+
+
+startButton.onmouseover = function(){btnAudio.play()};
 
 startButton.onclick = ()=> {
   startButton.blur();
@@ -36,4 +40,4 @@ canvas.addEventListener(
       if(player.x + player.width > ctx.canvas.width){player.x = ctx.canvas.width - player.width};
       if(game.gameState === 0){ball.x = player.x + player.width / 2};
   }
-)
+);
