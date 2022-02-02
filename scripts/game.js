@@ -128,6 +128,7 @@ class Game{
             26,
             42
         );
+        
         this.ctx.save();
         this.ctx.fillStyle = "white";
         this.ctx.font = "normal 26px pixelFont";

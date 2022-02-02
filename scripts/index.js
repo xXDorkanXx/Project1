@@ -1,28 +1,32 @@
+//------ CANVAS ------
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 canvas.width = 800;
 canvas.height = 600;
+let canvasX;
 
+//------ CLASSES ------
 const background = new Background(ctx);
 const bricks = new Bricks(ctx);
 const projectiles = new Projectiles(ctx, bricks, frames);
 const player = new Player(ctx);
 const ball = new Ball(ctx, player);
 
-
 const game = new Game(ctx, background, bricks, player, ball, projectiles);
 
 
+//------ DOM ------
 const startButton = document.getElementById("start-button");
 const gameboard = document.getElementById("gameboard");
 const menu = document.getElementById("menu");
-let canvasX;
 
 
+//------ AUDIO ------
 const btnAudio = new Audio("/sounds/glitch.wav");
 startButton.onmouseover = function(){btnAudio.play()};
 
 
+//------ EVENT LISTENERS ------
 startButton.onclick = ()=> {
   startButton.blur();
   canvas.focus();
