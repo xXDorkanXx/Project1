@@ -36,19 +36,6 @@ class Game{
         this.menu = document.getElementById("menu");
         this.startButton = document.getElementById("start-button");
         this.title = document.getElementById("title");
-
-        window.addEventListener(
-            "keydown",
-            (event)=>{
-                switch(event.key){
-                    case " ":
-                        this.ball.move();
-                        this.gameState = 1;
-                        this.bounceAudio.play();
-                        break;
-                }
-            }
-        )
     }
 
     startGame(){
@@ -60,12 +47,15 @@ class Game{
     init(){
         if(this.frames) this.stop();
         this.frames = 0;
+
         this.lifes = 4;
         this.score = 0;
+
         this.spriteCol = 3;
         this.spriteRow = 0;
         this.spriteX = 0;
         this.spriteY = 0;
+
         this.background.init();
         this.bricks.init();
         this.player.init();
@@ -86,9 +76,7 @@ class Game{
     }
 
     setSprite(){
-
         this.spriteCol = this.lifes - 1;
-
         this.spriteX = (this.spriteWidth * this.spriteCol);
         this.spriteY = (this.spriteHeight * this.spriteRow);
     }
@@ -109,9 +97,9 @@ class Game{
     draw(){
         this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
         this.background.draw();
+        this.bricks.draw();
         this.player.draw();
         this.ball.draw();
-        this.bricks.draw();
         this.projectiles.draw();
         this.drawScore();
         this.drawLifes();
@@ -163,14 +151,15 @@ class Game{
         let topOfPlayer = this.player.y;
         let bottomOfPlayer = this.player.y + this.player.height;
 
-        // PLAYER-WALLS COLLISIONS
+        //------ PLAYER-WALLS COLLISIONS ------
+
         // Prevents player go off screen by left side
         if(leftOfPlayer <= this.ball.r){leftOfPlayer = 0};
         // Prevents player go off screen by left side
         if(rightOfPlayer >= this.ctx.canvas.width){leftOfPlayer = this.ctx.canvas.width - this.player.width};
 
 
-        // BALL-BRICKS COLLISIONS
+        //------ BALL-BRICKS COLLISIONS ------
         for(let column = 0; column < this.bricks.brickColumns; column++){
             for(let row = 0; row < this.bricks.brickRows; row++){
                 
@@ -181,6 +170,7 @@ class Game{
                 let rightOfCurrentBrick = currentBrick.x + this.bricks.brickWidth;
 
                 if(currentBrick.status > 0){
+
                     // Ball bounce top and bottom of bricks
                     if(bottomOfBall > topOfCurrentBrick && topOfBall < topOfCurrentBrick && leftOfBall > leftOfCurrentBrick && rightOfBall < rightOfCurrentBrick ||
                         bottomOfBall > bottomOfCurrentBrick && topOfBall < bottomOfCurrentBrick && leftOfBall > leftOfCurrentBrick && rightOfBall < rightOfCurrentBrick){
@@ -218,14 +208,16 @@ class Game{
         };
 
 
-        // BALL-WALLS COLLISIONS
+        //------ BALL-WALLS COLLISIONS ------
+
         // Ball bounce at top of screen
         if(topOfBall < 0){this.ball.vy = -this.ball.vy};
         // Ball bounce at both sides of screen
         if(rightOfBall > this.ctx.canvas.width || leftOfBall < 0) {this.ball.vx = -this.ball.vx};
         
 
-        // BALL-PLAYER COLLISIONS
+        //------ BALL-PLAYER COLLISIONS ------
+        
         // Ball bounce when collides with top of player
         if(bottomOfBall > topOfPlayer && topOfBall < topOfPlayer && leftOfBall > leftOfPlayer && rightOfBall < rightOfPlayer){ 
             this.ball.vy = -(this.ball.vy + 1);
@@ -241,12 +233,14 @@ class Game{
                if(this.ball.vx  < 4){this.ball.vx += 4};
             }
         };
+
         // Ball bounce when collides with lateral of player
         if(rightOfBall > leftOfPlayer && leftOfBall < leftOfPlayer && topOfBall > topOfPlayer && bottomOfBall < bottomOfPlayer ||
             leftOfBall < rightOfPlayer && rightOfBall > rightOfPlayer && topOfBall > topOfPlayer && bottomOfBall < bottomOfPlayer){
             this.ball.vx = -this.ball.vx;
             this.bounceAudio.play();
         };
+
         // Ball bounce when collides with corner of player
         if(rightOfBall > leftOfPlayer && leftOfBall < leftOfPlayer && topOfBall < topOfPlayer && bottomOfBall > topOfPlayer ||
             leftOfBall < rightOfPlayer && rightOfBall > rightOfPlayer && topOfBall < topOfPlayer && bottomOfBall > topOfPlayer){
@@ -255,12 +249,14 @@ class Game{
         };
         
 
-        // PROJECTILES-PLAYER COLLISIONS
+        //------ PROJECTILES-PLAYER COLLISIONS ------
         this.projectiles.projectiles.forEach((projectile)=>{
+
             let leftOfProjectile = projectile.x - projectile.r;
             let rightOfProjectile = projectile.x + projectile.r;
             let topOfProjectile = projectile.y - projectile.r;
             let bottomOfProjectile = projectile.y + projectile.r;
+
             if(projectile.status > 0){
                 if(bottomOfProjectile > topOfPlayer && topOfProjectile < topOfPlayer && leftOfProjectile > leftOfPlayer && rightOfProjectile < rightOfPlayer ||
                     bottomOfProjectile < bottomOfPlayer && topOfProjectile > topOfPlayer && leftOfProjectile > leftOfPlayer && rightOfProjectile < rightOfPlayer){

@@ -1,6 +1,7 @@
 class Background{
     constructor(ctx){
         this.ctx = ctx;
+
         this.background = {
             img: new Image(),
             width: this.ctx.canvas.width,
@@ -9,6 +10,7 @@ class Background{
             y: 0,
             vy: 3
         };
+        
         this.background.img.src = "/images/stars.jpg";
     }
 

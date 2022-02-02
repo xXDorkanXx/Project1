@@ -41,3 +41,16 @@ canvas.addEventListener(
       if(game.gameState === 0){ball.x = player.x + player.width / 2};
   }
 );
+
+window.addEventListener(
+  "keydown",
+  (event)=>{
+      switch(event.key){
+          case " ":
+              ball.move();
+              game.gameState = 1;
+              game.bounceAudio.play();
+              break;
+      }
+  }
+)

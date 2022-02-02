@@ -2,6 +2,7 @@ class Ball {
   constructor(ctx, player) {
     this.ctx = ctx;
     this.player = player;
+
     this.x = this.player.x + this.player.width / 2;
     this.y = this.player.y - 20;
     this.r = 10;
@@ -9,6 +10,7 @@ class Ball {
     this.endAng = Math.PI * 2;
     this.vx = parseInt(Math.random() * 12 - 6);
     this.vy = -7;
+    
     this.status = 0;
   }
 

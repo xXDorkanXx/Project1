@@ -3,13 +3,16 @@ class Projectiles{
         this.ctx = ctx;
         this.bricks = bricks;
         this.frames = frames;
+
         this.r = 3;
         this.stAng = 0;
         this.endAng = Math.PI * 2;
         this.x;
         this.y;
         this.vy = 5;
+
         this.projectiles = [];
+        
         this.enemieShootAudio = new Audio("/sounds/enemie_shoot.wav");
     }
 

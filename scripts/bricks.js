@@ -1,6 +1,7 @@
 class Bricks{
     constructor(ctx){
         this.ctx = ctx;
+
         this.brickRows = 4;
         this.brickColumns = 6;
         this.brickWidth = 65;
@@ -8,8 +9,10 @@ class Bricks{
         this.brickPadding = 30;
         this.brickOffsetTop = 50;
         this.brickOffsetLeft = 50;
+
         this.img = new Image();
         this.img.src = "/images/aliens.png";
+        
         this.bricksArr = [];
     }
 
