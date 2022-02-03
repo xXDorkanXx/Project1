@@ -153,8 +153,6 @@ class Game{
         let column;
         let row;
 
-        
-
         //------ BALL-BRICKS COLLISIONS ------
         for(column = 0; column < this.bricks.brickColumns; column++){
             for(row = 0; row < this.bricks.brickRows; row++){
