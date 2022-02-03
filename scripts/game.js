@@ -297,8 +297,8 @@ class Game{
     }
 
     onKey(event){
-        switch(event.key){
-            case " ":
+        switch(event.button){
+            case 0:
                 this.ball.status = 1;
                 this.bounceAudio.play();
                 break;

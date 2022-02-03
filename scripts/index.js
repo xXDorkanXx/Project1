@@ -45,7 +45,7 @@ canvas.addEventListener(
   }
 );
 
-window.addEventListener(
-  "keydown",
+canvas.addEventListener(
+  "mousedown",
   game.onKey.bind(game)
 )
