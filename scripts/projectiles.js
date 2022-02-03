@@ -13,7 +13,7 @@ class Projectiles{
 
         this.projectiles = [];
         
-        this.enemieShootAudio = new Audio("/sounds/enemie_shoot.wav");
+        this.enemieShootAudio = new Audio("sounds/enemie_shoot.wav");
     }
 
     init(){
