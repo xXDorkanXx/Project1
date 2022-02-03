@@ -22,7 +22,7 @@ const menu = document.getElementById("menu");
 
 
 //------ AUDIO ------
-const btnAudio = new Audio("/sounds/glitch.wav");
+const btnAudio = new Audio("sounds/glitch.wav");
 startButton.onmouseover = function(){btnAudio.play()};
 
 
