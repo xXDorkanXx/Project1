@@ -13,7 +13,7 @@ class Game{
         this.gameState = 0;
 
         this.img = new Image();
-        this.img.src = "/images/lifes_sprite.png";
+        this.img.src = "images/lifes_sprite.png";
         this.x = this.ctx.canvas.width - 140;
         this.y = 7;
         this.spriteColumns = 4;
@@ -25,13 +25,13 @@ class Game{
         this.spriteWidth = 480;
         this.spriteHeight = 960;
 
-        this.themeAudio = new Audio("/sounds/main_theme.mp3");
-        this.bounceAudio = new Audio("/sounds/bounce.wav");
-        this.shootAudio = new Audio("/sounds/player_shoot.wav");
-        this.hitAudio = new Audio("/sounds/hit.wav");
-        this.explosionAudio = new Audio("/sounds/explosion.wav");
-        this.gameOverAudio = new Audio("/sounds/gameover.wav");
-        this.winAudio = new Audio("/sounds/win.wav");
+        this.themeAudio = new Audio("sounds/main_theme.mp3");
+        this.bounceAudio = new Audio("sounds/bounce.wav");
+        this.shootAudio = new Audio("sounds/player_shoot.wav");
+        this.hitAudio = new Audio("sounds/hit.wav");
+        this.explosionAudio = new Audio("sounds/explosion.wav");
+        this.gameOverAudio = new Audio("sounds/gameover.wav");
+        this.winAudio = new Audio("sounds/win.wav");
 
         this.gameboard = document.getElementById("gameboard");
         this.menu = document.getElementById("menu");
