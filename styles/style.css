@@ -28,6 +28,18 @@ h1{
     margin-top: 0;
 }
 
+#start-control-div{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#mouse{
+  margin-left: 20px;
+  width: 186px;
+  height: 126px;
+}
+
 #gameboard{
     position: absolute;
 }

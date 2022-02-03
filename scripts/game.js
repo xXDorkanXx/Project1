@@ -36,6 +36,7 @@ class Game{
         this.menu = document.getElementById("menu");
         this.startButton = document.getElementById("start-button");
         this.title = document.getElementById("title");
+        this.controls = document.getElementById("mouse");
     }
 
     startGame(){
@@ -300,6 +301,7 @@ class Game{
         switch(event.button){
             case 0:
                 this.ball.status = 1;
+                this.controls.remove();
                 this.bounceAudio.play();
                 break;
         }
