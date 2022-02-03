@@ -9,7 +9,7 @@ class Player{
         this.vx = 0;
         
         this.img = new Image();
-        this.img.src = "/images/satellite.png";
+        this.img.src = "images/satellite.png";
     }
 
     init(){
