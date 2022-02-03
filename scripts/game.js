@@ -156,7 +156,7 @@ class Game{
         //------ PLAYER-WALLS COLLISIONS ------
 
         // Prevents player go off screen by left side
-        if(leftOfPlayer <= this.ball.r){leftOfPlayer = 0};
+        if(leftOfPlayer <= 0){leftOfPlayer = 0};
         // Prevents player go off screen by left side
         if(rightOfPlayer >= this.ctx.canvas.width){leftOfPlayer = this.ctx.canvas.width - this.player.width};
 
