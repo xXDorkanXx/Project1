@@ -23,9 +23,13 @@ class Ball {
   }
 
   move() {
+    if(this.status === 1){
     this.x += this.vx;
     this.y += this.vy;
-    this.status = 1;
+  }else{
+      this.x = this.player.x + this.player.width / 2
+      this.player.y - 20
+    }
   }
 
   draw() {

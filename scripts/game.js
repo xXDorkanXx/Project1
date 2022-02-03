@@ -10,7 +10,6 @@ class Game{
         this.frames = 0;
         this.lifes = 4;
         this.score = 0;
-        this.gameState = 0;
 
         this.img = new Image();
         this.img.src = "images/lifes_sprite.png";
@@ -85,9 +84,7 @@ class Game{
     move(){
         this.projectiles.move(this.frames);
         this.background.move();
-        if(this.ball.status === 1){
-            this.ball.move();
-        }
+        this.ball.move();
     }
 
     stop(){
@@ -153,17 +150,14 @@ class Game{
         let topOfPlayer = this.player.y;
         let bottomOfPlayer = this.player.y + this.player.height;
 
-        //------ PLAYER-WALLS COLLISIONS ------
+        let column;
+        let row;
 
-        // Prevents player go off screen by left side
-        if(leftOfPlayer <= 0){leftOfPlayer = 0};
-        // Prevents player go off screen by left side
-        if(rightOfPlayer >= this.ctx.canvas.width){leftOfPlayer = this.ctx.canvas.width - this.player.width};
-
+        
 
         //------ BALL-BRICKS COLLISIONS ------
-        for(let column = 0; column < this.bricks.brickColumns; column++){
-            for(let row = 0; row < this.bricks.brickRows; row++){
+        for(column = 0; column < this.bricks.brickColumns; column++){
+            for(row = 0; row < this.bricks.brickRows; row++){
                 
                 let currentBrick = this.bricks.bricksArr[column][row];
                 let topOfCurrentBrick = currentBrick.y;
@@ -276,7 +270,7 @@ class Game{
             this.explosionAudio.play();
             this.player.init();
             this.ball.init();
-            this.gameState = 0;
+            this.projectiles.init();
         }
     }
 
@@ -301,6 +295,15 @@ class Game{
             this.gameboard.classList.toggle("hidden");
             this.menu.classList.toggle("hidden");
             this.gameOverAudio.play();
+        }
+    }
+
+    onKey(event){
+        switch(event.key){
+            case " ":
+                this.ball.status = 1;
+                this.bounceAudio.play();
+                break;
         }
     }
 };

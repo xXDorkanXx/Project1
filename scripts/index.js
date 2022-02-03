@@ -42,19 +42,10 @@ canvas.addEventListener(
       player.x = event.clientX - canvasX - (player.width / 2);
       if(player.x <= 0){player.x = 0};
       if(player.x + player.width > ctx.canvas.width){player.x = ctx.canvas.width - player.width};
-      if(game.gameState === 0){ball.x = player.x + player.width / 2};
   }
 );
 
 window.addEventListener(
   "keydown",
-  (event)=>{
-      switch(event.key){
-          case " ":
-              ball.move();
-              game.gameState = 1;
-              game.bounceAudio.play();
-              break;
-      }
-  }
+  game.onKey.bind(game)
 )
