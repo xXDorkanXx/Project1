@@ -11,7 +11,7 @@ class Background{
             vy: 3
         };
         
-        this.background.img.src = "images/stars.jpg";
+        this.background.img.src = "../images/stars.jpg";
     }
 
     init(){
